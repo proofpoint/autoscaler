@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+FROM golang:1.13.4 as builder
+COPY . /go/src/k8s.io/contrib/addon-resizer
+RUN cd /go/src/k8s.io/contrib/addon-resizer && \
+      make compile && \
+      make test
+
 FROM busybox
-MAINTAINER Quintin Lee "qlee@google.com"
-
-ADD build/pod_nanny pod_nanny
-
+COPY --from=builder /go/src/k8s.io/contrib/addon-resizer/build/pod_nanny pod_nanny
 CMD ./pod_nanny
