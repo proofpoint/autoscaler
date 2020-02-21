@@ -1,0 +1,16 @@
+sudo: false
+
+language: go
+
+go:
+- "1.13.4"
+
+install:
+  - mkdir -p $HOME/gopath/src/k8s.io/contrib
+  - mv $TRAVIS_BUILD_DIR/addon-resizer $HOME/gopath/src/k8s.io/contrib
+
+before_script:
+  - cd $HOME/gopath/src/k8s.io/contrib/addon-resizer
+
+script:
+  - make go
