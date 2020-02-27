@@ -18,6 +18,6 @@ RUN cd /go/src/k8s.io/contrib/addon-resizer && \
       make compile && \
       make test
 
-FROM busybox
+FROM busybox:1.31.0
 COPY --from=builder /go/src/k8s.io/contrib/addon-resizer/build/pod_nanny pod_nanny
 CMD ./pod_nanny
